@@ -989,6 +989,28 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   font-weight: 400;
 }
 
+.work-meta > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.work-live, .proof-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 12px;
+  color: var(--lemon);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(244,216,91,.45);
+  transition: color .2s ease, border-color .2s ease;
+}
+
+.work-live:hover, .proof-live:hover {
+  color: var(--orange);
+  border-color: var(--orange);
+}
+
 .work-card.is-active .work-index {
   color: var(--orange);
 }
@@ -1128,6 +1150,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 
 .proof-bottom span {
   color: #70717c;
+  font: 10px var(--app-font-mono);
+  text-transform: uppercase;
+}
+
+.proof-live {
+  margin: 0 auto 0 0;
+  color: var(--teal);
+  border-color: rgba(42,139,137,.45);
   font: 10px var(--app-font-mono);
   text-transform: uppercase;
 }
@@ -1440,6 +1470,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .work-list { margin-top: 50px; }
   .work-card { grid-template-columns: 38px 1fr; gap: 12px; padding: 25px 0; }
   .work-meta { grid-column: 2; text-align: left; }
+  .work-live { margin-top: 10px; }
   .work-detail { grid-column: 2; grid-template-columns: 1fr; max-height: none; }
   .proof-layout { margin-top: 45px; }
   .proof-panel { box-shadow: 6px 7px 0 var(--ink); }

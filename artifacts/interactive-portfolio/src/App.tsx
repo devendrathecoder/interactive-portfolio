@@ -19,6 +19,7 @@ const work = [
     summary: 'A full-stack gym management platform built to make fitness businesses easier to run, from leads to members.',
     quote: 'Turned a messy set of gym workflows into one calm, repeatable system with a paying gym owner already using it.',
     stat: 'active B2B subscriber',
+    url: 'https://fitops.naviti.xyz/',
   },
   {
     id: '02',
@@ -28,6 +29,7 @@ const work = [
     summary: 'A digital agency creating custom-built websites and CRM systems for local businesses.',
     quote: 'From client acquisition to deployment, I manage the full software lifecycle and keep the work close to business reality.',
     stat: 'Udaipur, India',
+    url: 'https://naviti.xyz/',
   },
 ];
 
@@ -39,6 +41,7 @@ const proof = [
     tag: 'Growth + systems',
     quote: 'A custom CRM and lead-generation system designed around the real rhythm of a growing fitness business.',
     detail: 'Custom CRM, lead generation, and member management.',
+    url: 'https://ampmfitness.vercel.app/',
   },
   {
     name: 'TeenTasker',
@@ -47,6 +50,7 @@ const proof = [
     tag: 'Marketplace',
     quote: 'A marketplace concept connecting teenagers looking for meaningful work with people who need a hand.',
     detail: 'Product concept, marketplace thinking, and usable MVP loops.',
+    url: '',
   },
   {
     name: 'Hare Krishna Trust',
@@ -55,6 +59,7 @@ const proof = [
     tag: 'Digital home',
     quote: 'A public-facing website and analytics dashboard making the Trust’s operations easier to understand and act on.',
     detail: 'Web experience, data visualization, and analytics.',
+    url: '',
   },
 ];
 
@@ -195,7 +200,7 @@ function WorkSection() {
       <div className="work-list">
         {work.map((item, index) => (
           <div
-            className={`work-card reveal ${active === item.id ? 'is-active' : ''}`}
+            className={`work-card ${active === item.id ? 'is-active' : ''}`}
             key={item.id}
             onClick={() => setActive(active === item.id ? null : item.id)}
             role="button"
@@ -208,7 +213,21 @@ function WorkSection() {
               <h3>{item.name}<i>{item.accent}</i></h3>
               <p>{item.summary}</p>
             </div>
-            <div className="work-meta"><strong>{item.type}</strong>{active === item.id ? 'close detail' : 'open detail'} <ArrowUpRight size={13} /></div>
+            <div className="work-meta">
+              <strong>{item.type}</strong>
+              <span>{active === item.id ? 'close detail' : 'open detail'} <ArrowUpRight size={13} /></span>
+              {item.url && (
+                <a
+                  className="work-live"
+                  href={item.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={(event) => event.stopPropagation()}
+                >
+                  visit live site <ArrowUpRight size={12} />
+                </a>
+              )}
+            </div>
             {active === item.id && (
               <div className="work-detail">
                 <blockquote>“{item.quote}”</blockquote>
@@ -253,8 +272,9 @@ function ProofSection() {
               <span>{item.year}</span>
             </div>
             <p className="proof-quote">“{item.quote}”</p>
-            <div className="proof-bottom">
-              <span>{item.tag} · {item.detail}</span>
+             <div className="proof-bottom">
+               <span>{item.tag} · {item.detail}</span>
+               {item.url && <a className="proof-live" href={item.url} target="_blank" rel="noreferrer">open project <ArrowUpRight size={12} /></a>}
               <b className="proof-mark">{item.mark}</b>
             </div>
           </div>
