@@ -1,6 +1,8 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import { ArrowDown, ArrowUpRight, Copy, Github, Linkedin, Mail, Menu, X } from 'lucide-react';
 import devendraPhoto from '@assets/devendrapic_1787488439494.png';
+import fitopsDashboard from '@assets/image_1787498583881.png';
+import fitopsDashboardCompact from '@assets/image_1787498602914.png';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
@@ -232,6 +234,27 @@ function WorkSection() {
               <div className="work-detail">
                 <blockquote>“{item.quote}”</blockquote>
                 <div className="detail-stat"><span>signal</span><strong>{item.stat}</strong></div>
+                {item.id === '01' && (
+                  <div className="fitops-preview" aria-label="FitOps dashboard demo preview">
+                    <div className="fitops-preview-head">
+                      <span><b /> FitOps / dashboard preview</span>
+                      <small>demo data · 2026</small>
+                    </div>
+                    <div className="fitops-preview-grid">
+                      <div className="fitops-screen fitops-screen-main">
+                        <img src={fitopsDashboard} alt="FitOps gym management dashboard with demo metrics and revenue chart" />
+                      </div>
+                      <div className="fitops-screen fitops-screen-secondary">
+                        <img src={fitopsDashboardCompact} alt="FitOps compact gym dashboard view with demo metrics" />
+                      </div>
+                    </div>
+                    <div className="fitops-demo-data">
+                      <span><b>95</b> active members</span>
+                      <span><b>₹22,000</b> monthly revenue</span>
+                      <span><b>53</b> new admissions</span>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>

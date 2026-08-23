@@ -1053,6 +1053,91 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   font-weight: 500;
 }
 
+.fitops-preview {
+  grid-column: 1 / -1;
+  margin-top: 13px;
+  padding: 15px;
+  border: 1px solid #464958;
+  background: #1b1f34;
+  animation: reveal-detail .45s ease both;
+}
+
+.fitops-preview-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: center;
+  margin-bottom: 13px;
+  color: #c5c8cf;
+  font: 10px var(--app-font-mono);
+  text-transform: uppercase;
+}
+
+.fitops-preview-head span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.fitops-preview-head b {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #80d600;
+  box-shadow: 0 0 0 4px rgba(128,214,0,.12);
+}
+
+.fitops-preview-head small {
+  color: var(--lemon);
+  font: inherit;
+}
+
+.fitops-preview-grid {
+  display: grid;
+  grid-template-columns: 1.38fr .62fr;
+  gap: 10px;
+}
+
+.fitops-screen {
+  overflow: hidden;
+  background: #f7f8f5;
+  border: 1px solid #353a4d;
+}
+
+.fitops-screen img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.fitops-screen-secondary {
+  align-self: end;
+  max-height: 175px;
+}
+
+.fitops-screen-secondary img {
+  min-height: 175px;
+  object-fit: cover;
+  object-position: left top;
+}
+
+.fitops-demo-data {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin-top: 13px;
+  color: #9ca1ad;
+  font: 9px var(--app-font-mono);
+  text-transform: uppercase;
+}
+
+.fitops-demo-data b {
+  margin-right: 4px;
+  color: var(--paper);
+  font-weight: 500;
+}
+
 .proof-section {
   background: var(--lemon);
 }
@@ -1472,6 +1557,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .work-meta { grid-column: 2; text-align: left; }
   .work-live { margin-top: 10px; }
   .work-detail { grid-column: 2; grid-template-columns: 1fr; max-height: none; }
+  .fitops-preview { grid-column: 1; margin-top: 5px; padding: 10px; }
+  .fitops-preview-head { align-items: flex-start; flex-direction: column; gap: 7px; }
+  .fitops-preview-grid { grid-template-columns: 1fr; }
+  .fitops-screen-secondary { display: none; }
   .proof-layout { margin-top: 45px; }
   .proof-panel { box-shadow: 6px 7px 0 var(--ink); }
   .method-title { position: static; }
