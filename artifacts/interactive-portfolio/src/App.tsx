@@ -1,5 +1,6 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import { ArrowDown, ArrowUpRight, Copy, Github, Linkedin, Mail, Menu, X } from 'lucide-react';
+import devendraPhoto from '@assets/devendrapic_1787488439494.png';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
@@ -14,19 +15,19 @@ const work = [
     id: '01',
     name: 'FitOps',
     accent: 'OS',
-    type: 'Operating system · 2024—now',
-    summary: 'The operating layer for ambitious fitness businesses. Strategy, software, and a little productive friction.',
-    quote: 'Turned a messy set of gym workflows into one calm, repeatable system that people actually use.',
-    stat: 'multi-site ops',
+    type: 'Gym management SaaS · 2026—now',
+    summary: 'A full-stack gym management platform built to make fitness businesses easier to run, from leads to members.',
+    quote: 'Turned a messy set of gym workflows into one calm, repeatable system with a paying gym owner already using it.',
+    stat: 'active B2B subscriber',
   },
   {
     id: '02',
     name: 'Naviti',
     accent: '',
-    type: 'Product studio · 2022—now',
-    summary: 'A small, senior team building clear products for people with a sharp point of view.',
-    quote: 'The best product decisions usually sound obvious after you make them. Getting there is the work.',
-    stat: 'India → everywhere',
+    type: 'Web agency · 2025—now',
+    summary: 'A digital agency creating custom-built websites and CRM systems for local businesses.',
+    quote: 'From client acquisition to deployment, I manage the full software lifecycle and keep the work close to business reality.',
+    stat: 'Udaipur, India',
   },
 ];
 
@@ -36,24 +37,24 @@ const proof = [
     year: '01 / 03',
     mark: 'AMPM',
     tag: 'Growth + systems',
-    quote: 'A fitness brand with the discipline to make training feel like a place you want to return to.',
-    detail: 'Brand platform, member experience, and operating model.',
+    quote: 'A custom CRM and lead-generation system designed around the real rhythm of a growing fitness business.',
+    detail: 'Custom CRM, lead generation, and member management.',
   },
   {
     name: 'TeenTasker',
     year: '02 / 03',
     mark: 'TT',
     tag: 'Marketplace',
-    quote: 'Designed the bridge between young people who want agency and communities that need a hand.',
-    detail: 'Research, product strategy, MVP, and the first usable loop.',
+    quote: 'A marketplace concept connecting teenagers looking for meaningful work with people who need a hand.',
+    detail: 'Product concept, marketplace thinking, and usable MVP loops.',
   },
   {
     name: 'Hare Krishna Trust',
     year: '03 / 03',
     mark: 'HKT',
     tag: 'Digital home',
-    quote: 'Made an institution’s generosity easier to find, understand, and act on.',
-    detail: 'Information architecture, design system, and web experience.',
+    quote: 'A public-facing website and analytics dashboard making the Trust’s operations easier to understand and act on.',
+    detail: 'Web experience, data visualization, and analytics.',
   },
 ];
 
@@ -88,7 +89,7 @@ function Navigation() {
   return (
     <header className="site-nav">
       <a className="nav-mark" href="#top" onClick={close} data-testid="link-home">
-        <i aria-hidden="true" /> arjun / studio
+        <i aria-hidden="true" /> devendra / studio
       </a>
       <button className="menu-toggle" onClick={() => setOpen(!open)} aria-label={open ? 'Close menu' : 'Open menu'} data-testid="button-toggle-menu">
         {open ? <X size={15} /> : <Menu size={15} />} menu
@@ -113,7 +114,7 @@ function Hero() {
           I make the <em>mess</em><br />make sense.
         </h1>
         <p className="hero-copy reveal reveal-delay-2">
-          I’m Arjun — I turn hard-to-explain ideas into products people can feel, use, and come back to. Building from India, for everywhere.
+          I’m Devendra — a founder and full-stack developer turning hard-to-explain ideas into products people can feel, use, and come back to. Building from Udaipur, for everywhere.
         </p>
         <div className="hero-actions reveal reveal-delay-3">
           <button className="button-primary" onClick={() => scrollToSection('work')} data-testid="button-see-work">
@@ -126,9 +127,13 @@ function Hero() {
       </div>
       <div className="hero-aside reveal reveal-delay-2" aria-label="Studio mark">
         <div className="hero-orbit" />
+        <div className="hero-portrait">
+          <img src={devendraPhoto} alt="Devendra Meena" />
+          <span>DEVENDRA / 01</span>
+        </div>
         <div className="hero-stamp">
           <strong>ship<br />useful<br />things</strong>
-          <small>since 2016 · IN</small>
+           <small>since 2025 · IN</small>
         </div>
         <p className="side-note">The work lives somewhere between a whiteboard and a live product.</p>
       </div>
@@ -142,13 +147,13 @@ function Identity() {
       <div className="section-label reveal"><b>00</b><span /> Identity, in plain text</div>
       <div className="identity-grid">
         <aside className="identity-aside reveal">
-          <p>Currently between product decisions, pull requests, and the occasional long walk.</p>
-          <p>Based in Bengaluru. Available for a small number of collaborations.</p>
+           <p>Founder, full-stack developer, and Electrical Engineering student who likes taking products all the way from idea to market.</p>
+           <p>Based in Udaipur, Rajasthan. Available for a small number of collaborations.</p>
         </aside>
         <div className="identity-copy">
           <h2 className="reveal reveal-delay-1">Not just a developer.<br /><span>A product person</span> who can code.</h2>
           <p className="reveal reveal-delay-2">
-            I work where software, business, and people overlap. That means asking better questions before opening the editor, then staying close enough to the code to make the answer real.
+             I work where software, business, and people overlap. I’m currently studying at CTAE, Udaipur while building FitOps and running Naviti — staying close enough to the code and the customer to make ideas real.
           </p>
           <div className="principles reveal reveal-delay-3">
             <div className="principle">
@@ -166,6 +171,11 @@ function Identity() {
               <h3>Leave a better machine.</h3>
               <p>Systems, teams, and products should compound after I leave.</p>
             </div>
+          </div>
+          <div className="identity-facts reveal reveal-delay-3">
+            <div><span>studying</span><strong>B.Tech · CTAE Udaipur</strong></div>
+            <div><span>stack</span><strong>Next.js · Node · Supabase</strong></div>
+            <div><span>languages</span><strong>English · Hindi</strong></div>
           </div>
         </div>
       </div>
@@ -291,7 +301,7 @@ function ContactSection() {
     setSent(true);
   };
   const copyEmail = async () => {
-    await navigator.clipboard?.writeText('hello@arjun.studio');
+    await navigator.clipboard?.writeText('devendrathecoder@gmail.com');
     setSent(true);
   };
   return (
@@ -303,7 +313,7 @@ function ContactSection() {
           <p className="contact-intro">Tell me the version you are brave enough to build. I’ll tell you what I see.</p>
         </div>
         <div className="terminal reveal reveal-delay-1">
-          <div className="terminal-bar"><i /> arjun@studio:~ / conversation</div>
+             <div className="terminal-bar"><i /> devendra@studio:~ / conversation</div>
           <div className="terminal-body">
             <div className="terminal-command">$ ./start-a-conversation</div>
             <p>{sent ? 'Message queued. I will be in touch soon.' : 'Leave a line. No decks required.'}</p>
@@ -318,9 +328,9 @@ function ContactSection() {
         </div>
       </div>
       <div className="contact-links reveal reveal-delay-2">
-        <a href="mailto:hello@arjun.studio" data-testid="link-email"><Mail size={13} /> email</a>
-        <a href="https://github.com" target="_blank" rel="noreferrer" data-testid="link-github"><Github size={13} /> github</a>
-        <a href="https://linkedin.com" target="_blank" rel="noreferrer" data-testid="link-linkedin"><Linkedin size={13} /> linkedin</a>
+        <a href="mailto:devendrathecoder@gmail.com" data-testid="link-email"><Mail size={13} /> email</a>
+        <a href="https://github.com/devendrathecoder" target="_blank" rel="noreferrer" data-testid="link-github"><Github size={13} /> github</a>
+        <a href="https://www.linkedin.com/in/devendra-meena-83bab6370/" target="_blank" rel="noreferrer" data-testid="link-linkedin"><Linkedin size={13} /> linkedin</a>
         <button onClick={copyEmail} data-testid="button-copy-email"><Copy size={13} /> {sent ? 'copied' : 'copy email'}</button>
       </div>
     </section>
@@ -341,7 +351,7 @@ function Home() {
       <ProofSection />
       <MethodSection />
       <ContactSection />
-      <footer className="site-footer"><span>© 2025 Arjun / studio</span><span>built with attention · Bengaluru, IN</span></footer>
+     <footer className="site-footer"><span>© 2026 Devendra Meena / studio</span><span>built with attention · Udaipur, IN</span></footer>
     </main>
   );
 }

@@ -689,6 +689,43 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   text-transform: uppercase;
 }
 
+.hero-portrait {
+  position: absolute;
+  z-index: 2;
+  left: 2%;
+  bottom: 14%;
+  display: grid;
+  place-items: center;
+  width: 138px;
+  height: 138px;
+  overflow: hidden;
+  border: 8px solid var(--paper);
+  border-radius: 50%;
+  background: #d9d7d1;
+  box-shadow: 7px 8px 0 var(--ink);
+  transform: rotate(-8deg);
+}
+
+.hero-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: saturate(.82) contrast(1.02);
+}
+
+.hero-portrait span {
+  position: absolute;
+  right: -9px;
+  bottom: 8px;
+  padding: 4px 6px;
+  color: var(--paper);
+  background: var(--teal);
+  font: 8px var(--app-font-mono);
+  letter-spacing: .05em;
+  transform: rotate(8deg);
+}
+
 .side-note {
   position: absolute;
   right: 1%;
@@ -828,6 +865,30 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   color: #6d6d74;
   font-size: 13px;
   line-height: 1.4;
+}
+
+.identity-facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 30px;
+  padding-top: 19px;
+  border-top: 1px solid #c8c4ba;
+}
+
+.identity-facts span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--orange);
+  font: 10px var(--app-font-mono);
+  text-transform: uppercase;
+}
+
+.identity-facts strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -.025em;
 }
 
 .work-section {
@@ -1363,12 +1424,15 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .hero-aside { min-height: 315px; margin-top: 15px; }
   .hero-orbit { width: 270px; }
   .hero-stamp { width: 205px; box-shadow: 8px 9px 0 var(--ink); }
+  .hero-portrait { left: 3%; bottom: 11%; width: 104px; height: 104px; border-width: 6px; }
+  .hero-portrait span { font-size: 7px; right: -13px; }
   .side-note { right: 4%; bottom: 2%; }
   .section { padding: 88px 20px; }
   .identity-grid, .proof-layout, .method-grid, .contact-grid { grid-template-columns: 1fr; gap: 45px; }
   .identity-grid { margin-top: 42px; }
   .identity-aside p { max-width: 290px; }
   .principles { grid-template-columns: 1fr; margin-top: 52px; }
+  .identity-facts { grid-template-columns: 1fr; gap: 14px; }
   .principle, .principle + .principle { padding: 19px 0; border-left: 0; }
   .principle + .principle { border-top: 1px solid #c8c4ba; }
   .work-intro { display: block; margin-top: 42px; }
