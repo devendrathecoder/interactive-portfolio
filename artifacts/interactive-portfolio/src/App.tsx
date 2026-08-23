@@ -1,0 +1,378 @@
+import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
+import { ArrowDown, ArrowUpRight, Copy, Github, Linkedin, Mail, Menu, X } from 'lucide-react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ErrorBoundary } from '@/components/error-boundary';
+import { Toaster } from '@/components/ui/toaster';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import NotFound from '@/pages/not-found';
+import { Route, Switch, useLocation, Router as WouterRouter } from 'wouter';
+
+const queryClient = new QueryClient();
+
+const work = [
+  {
+    id: '01',
+    name: 'FitOps',
+    accent: 'OS',
+    type: 'Operating system · 2024—now',
+    summary: 'The operating layer for ambitious fitness businesses. Strategy, software, and a little productive friction.',
+    quote: 'Turned a messy set of gym workflows into one calm, repeatable system that people actually use.',
+    stat: 'multi-site ops',
+  },
+  {
+    id: '02',
+    name: 'Naviti',
+    accent: '',
+    type: 'Product studio · 2022—now',
+    summary: 'A small, senior team building clear products for people with a sharp point of view.',
+    quote: 'The best product decisions usually sound obvious after you make them. Getting there is the work.',
+    stat: 'India → everywhere',
+  },
+];
+
+const proof = [
+  {
+    name: 'AMPM Fitness',
+    year: '01 / 03',
+    mark: 'AMPM',
+    tag: 'Growth + systems',
+    quote: 'A fitness brand with the discipline to make training feel like a place you want to return to.',
+    detail: 'Brand platform, member experience, and operating model.',
+  },
+  {
+    name: 'TeenTasker',
+    year: '02 / 03',
+    mark: 'TT',
+    tag: 'Marketplace',
+    quote: 'Designed the bridge between young people who want agency and communities that need a hand.',
+    detail: 'Research, product strategy, MVP, and the first usable loop.',
+  },
+  {
+    name: 'Hare Krishna Trust',
+    year: '03 / 03',
+    mark: 'HKT',
+    tag: 'Digital home',
+    quote: 'Made an institution’s generosity easier to find, understand, and act on.',
+    detail: 'Information architecture, design system, and web experience.',
+  },
+];
+
+function useReveals() {
+  useEffect(() => {
+    const items = document.querySelectorAll<HTMLElement>('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      items.forEach((item) => item.classList.add('is-visible'));
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      }),
+      { threshold: 0.12 },
+    );
+    items.forEach((item) => observer.observe(item));
+    return () => observer.disconnect();
+  }, []);
+}
+
+function scrollToSection(id: string) {
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+}
+
+function Navigation() {
+  const [open, setOpen] = useState(false);
+  const close = () => setOpen(false);
+  return (
+    <header className="site-nav">
+      <a className="nav-mark" href="#top" onClick={close} data-testid="link-home">
+        <i aria-hidden="true" /> arjun / studio
+      </a>
+      <button className="menu-toggle" onClick={() => setOpen(!open)} aria-label={open ? 'Close menu' : 'Open menu'} data-testid="button-toggle-menu">
+        {open ? <X size={15} /> : <Menu size={15} />} menu
+      </button>
+      <nav className={`nav-links ${open ? 'is-open' : ''}`} aria-label="Primary navigation">
+        <a href="#work" onClick={close} data-testid="link-work">Work</a>
+        <a href="#proof" onClick={close} data-testid="link-proof">Proof</a>
+        <a href="#method" onClick={close} data-testid="link-method">Method</a>
+        <a href="#contact" onClick={close} data-testid="link-contact">Contact</a>
+      </nav>
+      <div className="nav-availability"><b /> taking on 1 good problem</div>
+    </header>
+  );
+}
+
+function Hero() {
+  return (
+    <section className="hero" id="top">
+      <div className="hero-content">
+        <div className="eyebrow reveal"><span /> Product-minded developer / operator</div>
+        <h1 className="hero-title reveal reveal-delay-1" data-testid="text-hero-title">
+          I make the <em>mess</em><br />make sense.
+        </h1>
+        <p className="hero-copy reveal reveal-delay-2">
+          I’m Arjun — I turn hard-to-explain ideas into products people can feel, use, and come back to. Building from India, for everywhere.
+        </p>
+        <div className="hero-actions reveal reveal-delay-3">
+          <button className="button-primary" onClick={() => scrollToSection('work')} data-testid="button-see-work">
+            See the work <ArrowDown size={14} />
+          </button>
+          <button className="button-ghost" onClick={() => scrollToSection('contact')} data-testid="button-start-conversation">
+            Start a conversation <ArrowUpRight size={14} />
+          </button>
+        </div>
+      </div>
+      <div className="hero-aside reveal reveal-delay-2" aria-label="Studio mark">
+        <div className="hero-orbit" />
+        <div className="hero-stamp">
+          <strong>ship<br />useful<br />things</strong>
+          <small>since 2016 · IN</small>
+        </div>
+        <p className="side-note">The work lives somewhere between a whiteboard and a live product.</p>
+      </div>
+    </section>
+  );
+}
+
+function Identity() {
+  return (
+    <section className="section" id="identity">
+      <div className="section-label reveal"><b>00</b><span /> Identity, in plain text</div>
+      <div className="identity-grid">
+        <aside className="identity-aside reveal">
+          <p>Currently between product decisions, pull requests, and the occasional long walk.</p>
+          <p>Based in Bengaluru. Available for a small number of collaborations.</p>
+        </aside>
+        <div className="identity-copy">
+          <h2 className="reveal reveal-delay-1">Not just a developer.<br /><span>A product person</span> who can code.</h2>
+          <p className="reveal reveal-delay-2">
+            I work where software, business, and people overlap. That means asking better questions before opening the editor, then staying close enough to the code to make the answer real.
+          </p>
+          <div className="principles reveal reveal-delay-3">
+            <div className="principle">
+              <b>01</b>
+              <h3>Find the actual problem.</h3>
+              <p>Not the loudest request. The one hiding underneath it.</p>
+            </div>
+            <div className="principle">
+              <b>02</b>
+              <h3>Make the first version useful.</h3>
+              <p>Small enough to ship. Specific enough to teach us something.</p>
+            </div>
+            <div className="principle">
+              <b>03</b>
+              <h3>Leave a better machine.</h3>
+              <p>Systems, teams, and products should compound after I leave.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function WorkSection() {
+  const [active, setActive] = useState<string | null>(null);
+  return (
+    <section className="section work-section" id="work">
+      <div className="section-label reveal"><b>01</b><span /> Selected work</div>
+      <div className="work-intro reveal reveal-delay-1">
+        <h2>Things I’ve helped<br />put into the world.</h2>
+        <p>Two ongoing ventures, different surfaces, the same obsession with making the complicated feel obvious.</p>
+      </div>
+      <div className="work-list">
+        {work.map((item, index) => (
+          <div
+            className={`work-card reveal ${active === item.id ? 'is-active' : ''}`}
+            key={item.id}
+            onClick={() => setActive(active === item.id ? null : item.id)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') setActive(active === item.id ? null : item.id); }}
+            data-testid={`card-work-${item.id}`}
+          >
+            <div className="work-index">/{item.id}</div>
+            <div>
+              <h3>{item.name}<i>{item.accent}</i></h3>
+              <p>{item.summary}</p>
+            </div>
+            <div className="work-meta"><strong>{item.type}</strong>{active === item.id ? 'close detail' : 'open detail'} <ArrowUpRight size={13} /></div>
+            {active === item.id && (
+              <div className="work-detail">
+                <blockquote>“{item.quote}”</blockquote>
+                <div className="detail-stat"><span>signal</span><strong>{item.stat}</strong></div>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ProofSection() {
+  const [selected, setSelected] = useState(0);
+  const item = proof[selected];
+  return (
+    <section className="section proof-section" id="proof">
+      <div className="section-label reveal"><b>02</b><span /> Proof of life</div>
+      <div className="proof-layout">
+        <div className="reveal">
+          <h2>Ideas are cheap.<br /><em>Receipts</em> are not.</h2>
+        </div>
+        <div className="reveal reveal-delay-1">
+          <div className="proof-tabs" role="tablist" aria-label="Proof projects">
+            {proof.map((project, index) => (
+              <button
+                className={`proof-tab ${selected === index ? 'is-active' : ''}`}
+                onClick={() => setSelected(index)}
+                role="tab"
+                aria-selected={selected === index}
+                key={project.name}
+                data-testid={`button-proof-${index}`}
+              >
+                {project.name}
+              </button>
+            ))}
+          </div>
+          <div className="proof-panel" key={item.name} data-testid="panel-selected-proof">
+            <div className="proof-panel-top">
+              <h3>{item.name}</h3>
+              <span>{item.year}</span>
+            </div>
+            <p className="proof-quote">“{item.quote}”</p>
+            <div className="proof-bottom">
+              <span>{item.tag} · {item.detail}</span>
+              <b className="proof-mark">{item.mark}</b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MethodSection() {
+  const steps = [
+    ['01', 'Listen for the tension', 'A kickoff is not a ceremony. It is a search for the gap between what people say and what the product needs.'],
+    ['02', 'Draw the smallest loop', 'I map the moment someone arrives, acts, and gets a reason to return. Everything else can wait.'],
+    ['03', 'Build close to reality', 'Real data, real constraints, real users. The interface gets clearer when the feedback gets closer.'],
+    ['04', 'Stay for the handoff', 'A launch is a beginning. I leave behind decisions that are legible and a system that can keep moving.'],
+  ];
+  return (
+    <section className="section method-section" id="method">
+      <div className="section-label reveal"><b>03</b><span /> How I work</div>
+      <div className="method-grid">
+        <div className="method-title reveal">
+          <h2>Less theatre.<br />More traction.</h2>
+          <p>I’m comfortable in the fog, but I don’t romanticise it. Good process gives a team more room to be brave.</p>
+        </div>
+        <div className="timeline">
+          {steps.map(([number, title, copy], index) => (
+            <div className={`timeline-item reveal reveal-delay-${Math.min(index + 1, 3)}`} key={number}>
+              <div className="timeline-no">{number}</div>
+              <div><h3>{title}</h3><p>{copy}</p></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ContactSection() {
+  const [message, setMessage] = useState('');
+  const [sent, setSent] = useState(false);
+  const submit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!message.trim()) return;
+    setSent(true);
+  };
+  const copyEmail = async () => {
+    await navigator.clipboard?.writeText('hello@arjun.studio');
+    setSent(true);
+  };
+  return (
+    <section className="section contact-section" id="contact">
+      <div className="section-label reveal"><b>04</b><span /> Open channel</div>
+      <div className="contact-grid">
+        <div className="reveal">
+          <h2>Have a good<br /><span>problem?</span></h2>
+          <p className="contact-intro">Tell me the version you are brave enough to build. I’ll tell you what I see.</p>
+        </div>
+        <div className="terminal reveal reveal-delay-1">
+          <div className="terminal-bar"><i /> arjun@studio:~ / conversation</div>
+          <div className="terminal-body">
+            <div className="terminal-command">$ ./start-a-conversation</div>
+            <p>{sent ? 'Message queued. I will be in touch soon.' : 'Leave a line. No decks required.'}</p>
+            {!sent && (
+              <form className="terminal-form" onSubmit={submit}>
+                <span>→</span>
+                <input value={message} onChange={(event) => setMessage(event.target.value)} placeholder="what are you building?" aria-label="Your message" data-testid="input-message" />
+              </form>
+            )}
+            {sent ? <div className="terminal-success">&gt; received / thank you</div> : <button className="terminal-submit" type="submit" data-testid="button-send-message">send message ↵</button>}
+          </div>
+        </div>
+      </div>
+      <div className="contact-links reveal reveal-delay-2">
+        <a href="mailto:hello@arjun.studio" data-testid="link-email"><Mail size={13} /> email</a>
+        <a href="https://github.com" target="_blank" rel="noreferrer" data-testid="link-github"><Github size={13} /> github</a>
+        <a href="https://linkedin.com" target="_blank" rel="noreferrer" data-testid="link-linkedin"><Linkedin size={13} /> linkedin</a>
+        <button onClick={copyEmail} data-testid="button-copy-email"><Copy size={13} /> {sent ? 'copied' : 'copy email'}</button>
+      </div>
+    </section>
+  );
+}
+
+function Home() {
+  useReveals();
+  return (
+    <main className="portfolio-shell">
+      <Navigation />
+      <Hero />
+      <div className="marquee" aria-label="Studio capabilities">
+        <div className="marquee-track"><span>product strategy</span><span>interface systems</span><span>full-stack shipping</span><span>operator energy</span><span>product strategy</span><span>interface systems</span><span>full-stack shipping</span><span>operator energy</span></div>
+      </div>
+      <Identity />
+      <WorkSection />
+      <ProofSection />
+      <MethodSection />
+      <ContactSection />
+      <footer className="site-footer"><span>© 2025 Arjun / studio</span><span>built with attention · Bengaluru, IN</span></footer>
+    </main>
+  );
+}
+
+function Router() {
+  return (
+    <RoutedErrorBoundary>
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route component={NotFound} />
+      </Switch>
+    </RoutedErrorBoundary>
+  );
+}
+
+function RoutedErrorBoundary({ children }: { children: ReactNode }) {
+  const [location] = useLocation();
+  return <ErrorBoundary resetKey={location}>{children}</ErrorBoundary>;
+}
+
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}>
+          <Router />
+        </WouterRouter>
+        <Toaster />
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+}
+
+export default App;

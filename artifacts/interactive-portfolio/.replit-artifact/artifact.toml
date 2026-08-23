@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Interactive Portfolio Website"
+description = "A scroll-driven portfolio for a product-minded developer and operator, showcasing identity, ventures, technical projects, and a dynamic inquiry flow."
+version = "1.0.0"
+id = "artifacts/interactive-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25434
+
+[services.development]
+run = "pnpm --filter @workspace/interactive-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/interactive-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/interactive-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25434"
+BASE_PATH = "/"
