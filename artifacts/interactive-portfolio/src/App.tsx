@@ -373,15 +373,34 @@ function MethodSection() {
 
 function ContactSection() {
   const [message, setMessage] = useState('');
+  const [contact, setContact] = useState('');
+  const [step, setStep] = useState<1 | 2>(1);
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const submit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleNext = (e?: React.FormEvent) => {
+    e?.preventDefault();
     if (!message.trim()) return;
+    setStep(2);
+  };
+
+  const submit = async (event?: FormEvent<HTMLFormElement>) => {
+    event?.preventDefault();
+    if (!message.trim() || !contact.trim()) return;
     
     setLoading(true);
     try {
+      let locationData = 'Location unavailable';
+      try {
+        const ipRes = await fetch('https://ipwho.is/');
+        const ipJson = await ipRes.json();
+        if (ipJson.success) {
+          locationData = `${ipJson.city}, ${ipJson.region}, ${ipJson.country} (IP: ${ipJson.ip})`;
+        }
+      } catch (e) {
+        console.warn('Could not fetch IP location');
+      }
+
       await fetch('https://formsubmit.co/ajax/devendrathecoder@gmail.com', {
         method: 'POST',
         headers: {
@@ -391,6 +410,9 @@ function ContactSection() {
         body: JSON.stringify({
           _subject: 'New project inquiry from Portfolio',
           message: message,
+          contact: contact,
+          sender_location: locationData,
+          ...(contact.includes('@') ? { _replyto: contact } : {})
         })
       });
       setSent(true);
@@ -420,17 +442,33 @@ function ContactSection() {
           <div className="terminal-body">
             <div className="terminal-command">$ ./start-a-conversation</div>
             <p>{sent ? 'Message queued. I will be in touch soon.' : 'Leave a line. No decks required.'}</p>
-            {!sent && (
-              <form className="terminal-form" onSubmit={submit}>
+            
+            {step === 2 && !sent && (
+              <div className="terminal-form" style={{ borderBottom: 'none', paddingBottom: '0', marginBottom: '14px', opacity: 0.6 }}>
                 <span>→</span>
-                <input disabled={loading} value={message} onChange={(event) => setMessage(event.target.value)} placeholder="what are you building?" aria-label="Your message" data-testid="input-message" />
+                <span>{message}</span>
+              </div>
+            )}
+
+            {!sent && step === 1 && (
+              <form className="terminal-form" onSubmit={handleNext}>
+                <span>→</span>
+                <input disabled={loading} value={message} onChange={(event) => setMessage(event.target.value)} placeholder="what are you building?" aria-label="Your message" data-testid="input-message" autoFocus />
               </form>
             )}
-            {sent ? <div className="terminal-success">&gt; received / thank you</div> : <button disabled={loading} className="terminal-submit" type="submit" data-testid="button-send-message" onClick={(e) => {
-              // Trigger form submission when button is clicked
-              const form = e.currentTarget.previousElementSibling as HTMLFormElement;
-              if (form) form.requestSubmit();
-            }}>{loading ? 'sending...' : 'send message ↵'}</button>}
+
+            {!sent && step === 2 && (
+              <form className="terminal-form" onSubmit={submit}>
+                <span>→</span>
+                <input disabled={loading} value={contact} onChange={(event) => setContact(event.target.value)} placeholder="how can I reach you? (email or phone)" aria-label="Your contact info" data-testid="input-contact" autoFocus />
+              </form>
+            )}
+
+            {sent ? <div className="terminal-success">&gt; received / thank you</div> : (
+              <button disabled={loading} className="terminal-submit" type="button" data-testid="button-send-message" onClick={() => step === 1 ? handleNext() : submit()}>
+                {loading ? 'sending...' : (step === 1 ? 'continue ↵' : 'send message ↵')}
+              </button>
+            )}
           </div>
         </div>
       </div>
