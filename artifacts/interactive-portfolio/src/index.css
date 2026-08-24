@@ -672,6 +672,139 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   justify-content: center;
 }
 
+.hero-console {
+  position: relative;
+  z-index: 1;
+  width: min(32vw, 410px);
+  min-height: 330px;
+  overflow: hidden;
+  color: var(--paper);
+  background: var(--ink);
+  box-shadow: 12px 13px 0 var(--orange);
+  transform: rotate(2.5deg);
+}
+
+.console-head,
+.console-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 14px 17px;
+  color: #aeb1b9;
+  border-bottom: 1px solid rgba(242,239,230,.2);
+  font: 9px var(--app-font-mono);
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.console-head span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.console-head b {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 0 5px rgba(236,101,69,.14);
+}
+
+.console-head small {
+  color: var(--lemon);
+  font: inherit;
+}
+
+.console-body {
+  padding: 38px 34px 33px;
+}
+
+.console-kicker {
+  display: block;
+  margin-bottom: 17px;
+  color: var(--orange);
+  font: 10px var(--app-font-mono);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.console-body > strong {
+  display: block;
+  font-size: clamp(31px, 3.4vw, 50px);
+  font-weight: 500;
+  line-height: .9;
+  letter-spacing: -.075em;
+}
+
+.console-body > strong em {
+  color: var(--lemon);
+  font-style: normal;
+}
+
+.console-rule {
+  display: flex;
+  gap: 5px;
+  margin: 35px 0 24px;
+}
+
+.console-rule i {
+  display: block;
+  width: 20%;
+  height: 4px;
+  background: #626575;
+}
+
+.console-rule i:first-child,
+.console-rule i:nth-child(2),
+.console-rule i:nth-child(3) {
+  background: var(--teal);
+}
+
+.console-status {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px 18px;
+  color: #c4c6ca;
+  font: 9px var(--app-font-mono);
+  text-transform: uppercase;
+}
+
+.console-status span b {
+  margin-right: 7px;
+  color: var(--orange);
+  font-weight: 400;
+}
+
+.console-status strong {
+  color: var(--teal);
+  font-size: 9px;
+  font-weight: 400;
+}
+
+.console-status strong:nth-of-type(2) {
+  color: var(--lemon);
+}
+
+.console-status strong:nth-of-type(3) {
+  color: #858895;
+}
+
+.console-foot {
+  border-top: 1px solid rgba(242,239,230,.2);
+  border-bottom: 0;
+  color: var(--paper);
+}
+
+.console-foot b {
+  color: var(--orange);
+  font-size: 15px;
+  font-weight: 400;
+}
+
 .hero-orbit {
   position: absolute;
   width: min(31vw, 415px);
@@ -1750,10 +1883,19 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
     padding: 0 14px;
     font-size: 10px;
   }
-  .hero-aside { min-height: 292px; margin-top: 15px; }
-  .hero-orbit { width: min(72vw, 270px); }
-  .hero-stamp { width: min(55vw, 205px); box-shadow: 8px 9px 0 var(--ink); }
-  .hero-stamp strong { font-size: clamp(25px, 8.4vw, 36px); }
+  .hero-aside { min-height: 325px; margin-top: 15px; }
+  .hero-console {
+    width: min(81vw, 330px);
+    min-height: 278px;
+    box-shadow: 8px 9px 0 var(--orange);
+  }
+  .console-head, .console-foot { padding: 11px 13px; font-size: 8px; }
+  .console-body { padding: 27px 23px 25px; }
+  .console-kicker { margin-bottom: 13px; font-size: 8px; }
+  .console-body > strong { font-size: clamp(28px, 8vw, 36px); }
+  .console-rule { margin: 27px 0 19px; }
+  .console-status { gap: 8px 10px; font-size: 8px; }
+  .console-status strong, .console-status span b { font-size: 8px; }
   .hero-signal { width: 106px; padding: 10px; }
   .hero-signal-top { top: 8%; left: 0; }
   .hero-signal-bottom { right: 0; bottom: 7%; }

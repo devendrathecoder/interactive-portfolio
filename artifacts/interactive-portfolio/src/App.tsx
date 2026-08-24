@@ -144,11 +144,26 @@ function Hero() {
           </button>
         </div>
       </div>
-      <div className="hero-aside reveal reveal-delay-2" aria-label="Studio mark">
-        <div className="hero-orbit" />
-        <div className="hero-stamp">
-          <strong>ship<br />useful<br />things</strong>
-           <small>since 2025 · IN</small>
+      <div className="hero-aside reveal reveal-delay-2" aria-label="Product shipping console">
+        <div className="hero-console">
+          <div className="console-head">
+            <span><b /> studio / shipping console</span>
+            <small>build 026</small>
+          </div>
+          <div className="console-body">
+            <span className="console-kicker">the useful bit</span>
+            <strong>Thought →<br /><em>thing people use.</em></strong>
+            <div className="console-rule"><i /><i /><i /><i /><i /></div>
+            <div className="console-status">
+              <span><b>01</b> find the tension</span><strong>done</strong>
+              <span><b>02</b> build the smallest loop</span><strong>live</strong>
+              <span><b>03</b> leave a better machine</span><strong>next</strong>
+            </div>
+          </div>
+          <div className="console-foot">
+            <span>shipping useful things</span>
+            <b>↗</b>
+          </div>
         </div>
         <div className="hero-signal hero-signal-top">
           <span>01 / role</span>
