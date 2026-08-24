@@ -204,18 +204,7 @@ function Hero() {
             <b>↗</b>
           </div>
         </div>
-        <div className="hero-signal hero-signal-top">
-          <span>01 / role</span>
-          <strong>founder<br />+ builder</strong>
-        </div>
-        <div className="hero-signal hero-signal-bottom">
-          <span>live from</span>
-          <strong>Udaipur →<br />everywhere</strong>
-        </div>
-        <div className="hero-stack-note">
-          <span>currently using</span>
-          <b>Next.js</b><b>Node</b><b>Supabase</b>
-        </div>
+
         <p className="side-note">The work lives somewhere between a whiteboard and a live product.</p>
       </div>
     </section>
