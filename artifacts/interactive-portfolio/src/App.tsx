@@ -2,9 +2,9 @@ import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import { ArrowDown, ArrowUpRight, Copy, Github, Linkedin, Mail, Menu, X } from 'lucide-react';
 import fitopsDashboard from '@assets/image_1787498583881.png';
 import fitopsDashboardCompact from '@assets/image_1787498602914.png';
-import ampmProject from '@assets/image_1787498674176.png';
-import navitiProject from '@assets/image_1787498699704.png';
-import hareKrishnaProject from '@assets/image_1787498711071.png';
+import ampmProject from '@assets/Screenshot_From_2026-08-23_20-54-30_1787545363386.png';
+import navitiProject from '@assets/Screenshot_From_2026-08-23_20-54-38_1787545363388.png';
+import hareKrishnaProject from '@assets/Screenshot_From_2026-08-23_20-55-08_1787545363388.png';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
@@ -293,6 +293,19 @@ function ProofSection() {
       <div className="proof-layout">
         <div className="reveal">
           <h2>Ideas are cheap.<br /><em>Receipts</em> are not.</h2>
+          <div className="proof-receipts" aria-label="Selected project screenshots">
+            {proof.map((project, index) => (
+              <button
+                className={`receipt-card receipt-card-${index + 1} ${selected === index ? 'is-active' : ''}`}
+                key={project.name}
+                onClick={() => setSelected(index)}
+                aria-label={`View ${project.name} screenshot`}
+              >
+                <img src={project.image} alt="" />
+                <span>{project.name} <ArrowUpRight size={11} /></span>
+              </button>
+            ))}
+          </div>
         </div>
         <div className="reveal reveal-delay-1">
           <div className="proof-tabs" role="tablist" aria-label="Proof projects">

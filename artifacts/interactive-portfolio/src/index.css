@@ -1210,6 +1210,70 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   font-style: normal;
 }
 
+.proof-receipts {
+  position: relative;
+  min-height: 265px;
+  max-width: 390px;
+  margin-top: 58px;
+}
+
+.receipt-card {
+  position: absolute;
+  width: 205px;
+  padding: 0 0 10px;
+  overflow: hidden;
+  border: 1px solid rgba(32,36,58,.28);
+  background: var(--paper);
+  box-shadow: 7px 8px 0 rgba(32,36,58,.92);
+  cursor: pointer;
+  text-align: left;
+  transform: rotate(-4deg);
+  transition: transform .25s ease, box-shadow .25s ease, z-index .25s ease;
+}
+
+.receipt-card-1 {
+  top: 0;
+  left: 8px;
+}
+
+.receipt-card-2 {
+  top: 38px;
+  left: 92px;
+  transform: rotate(3deg);
+}
+
+.receipt-card-3 {
+  top: 78px;
+  left: 184px;
+  transform: rotate(-2deg);
+}
+
+.receipt-card:hover,
+.receipt-card.is-active {
+  z-index: 3;
+  box-shadow: 4px 5px 0 var(--ink);
+  transform: translateY(-8px) rotate(0deg);
+}
+
+.receipt-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.96;
+  object-fit: cover;
+  object-position: top;
+  border-bottom: 1px solid #d2cfc3;
+}
+
+.receipt-card span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 11px 0;
+  color: var(--ink);
+  font: 9px var(--app-font-mono);
+  text-transform: uppercase;
+}
+
 .proof-tabs {
   display: flex;
   align-items: center;
@@ -1266,7 +1330,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 
 .proof-project-image {
   position: relative;
-  height: 184px;
+  height: clamp(240px, 25vw, 350px);
   margin: -28px 0 28px;
   overflow: hidden;
   border: 1px solid #d2cfc3;
@@ -1285,8 +1349,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center top;
+  background: #e7e1d4;
   transition: transform .45s ease;
 }
 
