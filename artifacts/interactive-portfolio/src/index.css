@@ -1045,10 +1045,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 
 .side-note {
   position: absolute;
-  right: 1%;
-  bottom: 11%;
+  right: -5px;
+  bottom: -15px;
+  z-index: 5;
   max-width: 180px;
-  color: #777875;
+  color: #9b9ca3;
   font: 10px/1.45 var(--app-font-mono);
   transform: rotate(-6deg);
 }
