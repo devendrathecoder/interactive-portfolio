@@ -201,11 +201,10 @@ function Hero() {
           </div>
           <div className="console-foot">
             <span>shipping useful things</span>
-            <b>↗</b>
           </div>
         </div>
 
-        <p className="side-note">The work lives somewhere between a whiteboard and a live product.</p>
+        <p className="side-note"><b>↗</b> The work lives somewhere between a whiteboard and a live product.</p>
       </div>
     </section>
   );
@@ -244,7 +243,7 @@ function Identity() {
           </div>
           <div className="identity-facts reveal reveal-delay-3">
             <div><span>studying</span><strong>B.Tech · CTAE Udaipur</strong></div>
-            <div><span>stack</span><strong>Next.js · Node · Supabase</strong></div>
+            <div><span>stack</span><strong>Next.js · Vue · Node · Express · SQL · MongoDB · Supabase · Firebase</strong></div>
             <div><span>languages</span><strong>English · Hindi</strong></div>
           </div>
         </div>
@@ -375,15 +374,39 @@ function MethodSection() {
 function ContactSection() {
   const [message, setMessage] = useState('');
   const [sent, setSent] = useState(false);
-  const submit = (event: FormEvent<HTMLFormElement>) => {
+  const [loading, setLoading] = useState(false);
+
+  const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!message.trim()) return;
-    setSent(true);
+    
+    setLoading(true);
+    try {
+      await fetch('https://formsubmit.co/ajax/devendrathecoder@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: 'New project inquiry from Portfolio',
+          message: message,
+        })
+      });
+      setSent(true);
+    } catch (error) {
+      console.error(error);
+      alert("Failed to send message. Please try emailing directly.");
+    } finally {
+      setLoading(false);
+    }
   };
+
   const copyEmail = async () => {
     await navigator.clipboard?.writeText('devendrathecoder@gmail.com');
     setSent(true);
   };
+
   return (
     <section className="section contact-section" id="contact">
       <div className="section-label reveal"><b>04</b><span /> Open channel</div>
@@ -400,10 +423,14 @@ function ContactSection() {
             {!sent && (
               <form className="terminal-form" onSubmit={submit}>
                 <span>→</span>
-                <input value={message} onChange={(event) => setMessage(event.target.value)} placeholder="what are you building?" aria-label="Your message" data-testid="input-message" />
+                <input disabled={loading} value={message} onChange={(event) => setMessage(event.target.value)} placeholder="what are you building?" aria-label="Your message" data-testid="input-message" />
               </form>
             )}
-            {sent ? <div className="terminal-success">&gt; received / thank you</div> : <button className="terminal-submit" type="submit" data-testid="button-send-message">send message ↵</button>}
+            {sent ? <div className="terminal-success">&gt; received / thank you</div> : <button disabled={loading} className="terminal-submit" type="submit" data-testid="button-send-message" onClick={(e) => {
+              // Trigger form submission when button is clicked
+              const form = e.currentTarget.previousElementSibling as HTMLFormElement;
+              if (form) form.requestSubmit();
+            }}>{loading ? 'sending...' : 'send message ↵'}</button>}
           </div>
         </div>
       </div>
