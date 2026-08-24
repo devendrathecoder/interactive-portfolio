@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
-import { ArrowDown, ArrowLeft, ArrowUpRight, Copy, Github, Linkedin, Mail, Menu, X } from 'lucide-react';
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, Copy, Github, Linkedin, Mail, Menu, X } from 'lucide-react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
@@ -55,7 +55,7 @@ const cases = [
   },
   {
     slug: 'naviti',
-    name: 'Hare Krishna Trust',
+    name: 'Naviti',
     year: '02 / 04',
     eyebrow: 'Naviti / the studio behind the work',
     tag: 'Agency · Web · Systems',
@@ -134,31 +134,31 @@ function scrollToSection(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 }
 
-function Navigation() {
-  const [open, setOpen] = useState(false);
+function Navigation({ theme = 'light' }: { theme?: 'light' | 'dark' } = {}) {
   const [scrolled, setScrolled] = useState(false);
-  const close = () => setOpen(false);
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      if (theme === 'dark') {
+        setScrolled(window.scrollY > window.innerHeight * 0.65);
+      } else {
+        setScrolled(window.scrollY > 24);
+      }
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [theme]);
   return (
-    <header className={`site-nav ${scrolled ? 'is-scrolled' : ''}`}>
-      <a className="nav-mark" href="#top" onClick={close} data-testid="link-home">
+    <header className={`site-nav ${scrolled ? 'is-scrolled' : ''} ${theme === 'dark' && !scrolled ? 'nav-dark' : ''}`}>
+      <a className="nav-mark" href="#top" data-testid="link-home">
         <i aria-hidden="true" /> devendra / studio
       </a>
-      <button className="menu-toggle" onClick={() => setOpen(!open)} aria-label={open ? 'Close menu' : 'Open menu'} data-testid="button-toggle-menu">
-        {open ? <X size={15} /> : <Menu size={15} />} menu
-      </button>
-      <nav className={`nav-links ${open ? 'is-open' : ''}`} aria-label="Primary navigation">
-         <a href="/#work" onClick={close} data-testid="link-work">Work</a>
-         <a href="/#identity" onClick={close} data-testid="link-about">About</a>
-         <a href="/#method" onClick={close} data-testid="link-method">Method</a>
-         <a href="/#contact" onClick={close} data-testid="link-contact">Contact</a>
+      <nav className="nav-links" aria-label="Primary navigation">
+         <a href="/#work" data-testid="link-work">Index</a>
+         <a href="/#identity" data-testid="link-about">Profile</a>
+         <a href="/#contact" data-testid="link-contact">Inquiries</a>
       </nav>
-      <div className="nav-availability"><b /> taking on 1 good problem</div>
+      <div className="nav-availability"><b /> available for commissions</div>
     </header>
   );
 }
@@ -295,11 +295,23 @@ function WorkSection() {
 
 function ProjectPage() {
   const [match, params] = useRoute('/work/:slug');
-  const item = match ? cases.find((project) => project.slug === params?.slug) : undefined;
+  const [scrolled, setScrolled] = useState(false);
+  const itemIndex = cases.findIndex((project) => project.slug === params?.slug);
+  const item = itemIndex !== -1 ? cases[itemIndex] : undefined;
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.7);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   if (!item) return <NotFound />;
+
+  const nextItem = cases[(itemIndex + 1) % cases.length];
   return (
     <main className="case-page portfolio-shell">
-      <Navigation />
+      <Navigation theme="dark" />
       <section className="case-hero">
         <div className="case-topline"><a href="/#work"><ArrowLeft size={12} /> back to work</a><span>{item.year}</span></div>
         <div className="case-heading">
@@ -316,14 +328,29 @@ function ProjectPage() {
       </section>
       <section className="case-body">
         <div className="case-signal"><span>the short version</span><strong>{item.name} is where strategy meets the last mile of implementation.</strong></div>
-        <div className="case-facts">{item.facts.map((fact, index) => <div key={fact}><b>0{index + 1}</b><span>{fact}</span></div>)}</div>
-        <div className="case-chapters">
-          {item.chapters.map(([title, copy], index) => (
-            <article key={title}><span>0{index + 1}</span><div><h2>{title}</h2><p>{copy}</p></div></article>
-          ))}
+        <div className="case-content">
+          <div className="case-facts">{item.facts.map((fact, index) => <div key={fact}><b>0{index + 1}</b><span>{fact}</span></div>)}</div>
+          <div className="case-chapters">
+            {item.chapters.map(([title, copy], index) => (
+              <article key={title}><span>0{index + 1}</span><div><h2>{title}</h2><p>{copy}</p></div></article>
+            ))}
+          </div>
         </div>
       </section>
+      <section className="up-next">
+        <span>Up next</span>
+        <a href={`/work/${nextItem.slug}`}>
+          <h2>{nextItem.name}</h2>
+          <div className="up-next-arrow"><ArrowRight size={18} /></div>
+        </a>
+      </section>
       <footer className="case-footer"><a href="/#work"><ArrowLeft size={12} /> browse all work</a><span>© 2026 Devendra Meena / studio</span></footer>
+      <div className={`floating-visit ${scrolled ? 'is-visible' : ''}`}>
+        <span className="floating-name">{item.name}</span>
+        <a href={item.url} target="_blank" rel="noreferrer" className="floating-button">
+          visit site <ArrowUpRight size={14} />
+        </a>
+      </div>
     </main>
   );
 }
