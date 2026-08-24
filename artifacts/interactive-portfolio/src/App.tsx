@@ -1,22 +1,18 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
-import { ArrowDown, ArrowUpRight, Copy, Github, Linkedin, Mail, Menu, X } from 'lucide-react';
-import fitopsDashboard from '@assets/image_1787498583881.png';
-import fitopsDashboardCompact from '@assets/image_1787498602914.png';
-import ampmProject from '@assets/Screenshot_From_2026-08-23_20-54-30_1787545363386.png';
-import navitiProject from '@assets/Screenshot_From_2026-08-23_20-54-38_1787545363388.png';
-import hareKrishnaProject from '@assets/Screenshot_From_2026-08-23_20-55-08_1787545363388.png';
+import { ArrowDown, ArrowLeft, ArrowUpRight, Copy, Github, Linkedin, Mail, Menu, X } from 'lucide-react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
-import { Route, Switch, useLocation, Router as WouterRouter } from 'wouter';
+import { Route, Switch, useLocation, useRoute, Router as WouterRouter } from 'wouter';
 
 const queryClient = new QueryClient();
 
 const work = [
   {
     id: '01',
+    slug: 'fitops',
     name: 'FitOps',
     accent: 'OS',
     type: 'Gym management SaaS · 2026—now',
@@ -27,6 +23,7 @@ const work = [
   },
   {
     id: '02',
+    slug: 'naviti',
     name: 'Naviti',
     accent: '',
     type: 'Web agency · 2025—now',
@@ -37,36 +34,78 @@ const work = [
   },
 ];
 
-const proof = [
+const cases = [
   {
-    name: 'AMPM Fitness',
-    year: '01 / 03',
-    mark: 'AMPM',
-    tag: 'Growth + systems',
-    quote: 'A custom CRM and lead-generation system designed around the real rhythm of a growing fitness business.',
-    detail: 'Custom CRM, lead generation, and member management.',
-    image: ampmProject,
-    url: 'https://ampmfitness.vercel.app/',
+    slug: 'fitops',
+    name: 'FitOps',
+    year: '01 / 04',
+    eyebrow: 'FitOps / a live operating system',
+    tag: 'Product · SaaS · B2B',
+    headline: 'Making the daily chaos of a gym visible.',
+    summary: 'A full-stack gym management platform for independent fitness businesses — shaped with a paying gym owner, not a speculative brief.',
+    role: 'Founder & Lead Developer',
+    duration: '2026 — present',
+    url: 'https://fitops.naviti.xyz/',
+    facts: ['95 active members in the live workspace', 'First paying B2B subscriber secured', 'Supabase + Firebase infrastructure'],
+    chapters: [
+      ['The tension', 'Gym owners were stitching leads, admissions, payments, and member follow-up across disconnected tools. The work was happening, but the business could not see its own rhythm.'],
+      ['The move', 'I built one calm operating layer: responsive workflows for leads and members, plus the data surfaces that make a growing gym easier to run.'],
+      ['The lesson', 'The strongest product feedback came after shipping. A real owner using the system made every next decision sharper.'],
+    ],
   },
   {
+    slug: 'naviti',
     name: 'Hare Krishna Trust',
-    year: '02 / 02',
-    mark: 'HKT',
-    tag: 'Digital home',
-    quote: 'A public-facing website and analytics dashboard making the Trust’s operations easier to understand and act on.',
-    detail: 'Web experience, data visualization, and analytics.',
-    image: hareKrishnaProject,
-    url: 'https://hare-krishna-trust.vercel.app/',
+    year: '02 / 04',
+    eyebrow: 'Naviti / the studio behind the work',
+    tag: 'Agency · Web · Systems',
+    headline: 'A small agency with the range to go all the way.',
+    summary: 'Naviti is my web development agency for local businesses that need more than a template — a sharper public presence, better workflows, and someone who owns the handoff.',
+    role: 'Founder & Web Developer',
+    duration: '2025 — present',
+    url: 'https://naviti.xyz/',
+    facts: ['Custom websites and CRM systems', 'Next.js, Vue, and Bootstrap delivery', 'Full lifecycle: acquisition to deployment'],
+    chapters: [
+      ['The position', 'Local businesses rarely need more software for its own sake. They need a digital presence that earns trust and an internal system that removes repeated work.'],
+      ['The practice', 'I keep the distance between client, code, and outcome short. Discovery, interface, implementation, and deployment stay in the same conversation.'],
+      ['The lesson', 'Good agency work is not a pile of deliverables. It is a business owner feeling more in control after the site goes live.'],
+    ],
   },
   {
-    name: 'Naviti',
-    year: '03 / 03',
-    mark: 'NAV',
-    tag: 'Agency platform',
-    quote: 'A sharp digital home for the agency behind the work — built to turn technical capability into clear business momentum.',
-    detail: 'Brand site, service narrative, and conversion experience.',
-    image: navitiProject,
-    url: 'https://naviti.xyz/',
+    slug: 'ampm-fitness',
+    name: 'AMPM Fitness',
+    year: '03 / 04',
+    eyebrow: 'Naviti client work / AMPM Fitness',
+    tag: 'CRM · Lead generation · Fitness',
+    headline: 'Turning attention into a repeatable member pipeline.',
+    summary: 'A public-facing fitness experience and personal CRM built around how a growing gym actually acquires, follows up with, and keeps members.',
+    role: 'Founder & Web Developer',
+    duration: '2025 — present',
+    url: 'https://ampmfitness.vercel.app/',
+    facts: ['Lead-generation experience', 'Member management workflows', 'Public website and CRM'],
+    chapters: [
+      ['The tension', 'The gym had energy and ambition, but the path from interested visitor to member was too dependent on memory and manual follow-up.'],
+      ['The move', 'I connected the public experience to the operational reality behind it, giving the team a clearer way to see, respond to, and manage demand.'],
+      ['The lesson', 'A website earns its keep when it makes the next real-world action easier — not when it only looks good in a launch post.'],
+    ],
+  },
+  {
+    slug: 'hare-krishna-trust',
+    name: 'Hare Krishna Trust',
+    year: '04 / 04',
+    eyebrow: 'Naviti client work / Hare Krishna Trust',
+    tag: 'Web · Data visualization · Charity',
+    headline: 'Making service easier to understand and act on.',
+    summary: 'A public-facing charity portal paired with an internal analytics dashboard for tracking, managing, and visualizing the Trust’s operations.',
+    role: 'Founder & Web Developer',
+    duration: '2025 — present',
+    url: 'https://hare-krishna-trust.vercel.app/',
+    facts: ['Public-facing charity portal', 'Internal operations dashboard', 'Metrics designed for clarity'],
+    chapters: [
+      ['The tension', 'The impact of a service organization can be difficult to see from the outside. The work is real, but the story and the operational signal live in different places.'],
+      ['The move', 'I designed a digital home that pairs a human mission with a clearer view of the numbers behind the work.'],
+      ['The lesson', 'Data visualization is not decoration. It is a way of giving a team and its supporters a shared picture of what is happening.'],
+    ],
   },
 ];
 
@@ -114,10 +153,10 @@ function Navigation() {
         {open ? <X size={15} /> : <Menu size={15} />} menu
       </button>
       <nav className={`nav-links ${open ? 'is-open' : ''}`} aria-label="Primary navigation">
-        <a href="#work" onClick={close} data-testid="link-work">Work</a>
-        <a href="#proof" onClick={close} data-testid="link-proof">Proof</a>
-        <a href="#method" onClick={close} data-testid="link-method">Method</a>
-        <a href="#contact" onClick={close} data-testid="link-contact">Contact</a>
+         <a href="/#work" onClick={close} data-testid="link-work">Work</a>
+         <a href="/#identity" onClick={close} data-testid="link-about">About</a>
+         <a href="/#method" onClick={close} data-testid="link-method">Method</a>
+         <a href="/#contact" onClick={close} data-testid="link-contact">Contact</a>
       </nav>
       <div className="nav-availability"><b /> taking on 1 good problem</div>
     </header>
@@ -226,136 +265,66 @@ function Identity() {
 }
 
 function WorkSection() {
-  const [active, setActive] = useState<string | null>(null);
   return (
     <section className="section work-section" id="work">
       <div className="section-label reveal"><b>01</b><span /> Selected work</div>
       <div className="work-intro reveal reveal-delay-1">
         <h2>Things I’ve helped<br />put into the world.</h2>
-        <p>Two ongoing ventures, different surfaces, the same obsession with making the complicated feel obvious.</p>
+        <p>Ventures, client systems, and experiments — each one a different way of turning a loose idea into something that has to work.</p>
       </div>
       <div className="work-list">
-        {work.map((item, index) => (
-          <div
-            className={`work-card ${active === item.id ? 'is-active' : ''}`}
-            key={item.id}
-            onClick={() => setActive(active === item.id ? null : item.id)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') setActive(active === item.id ? null : item.id); }}
-            data-testid={`card-work-${item.id}`}
-          >
-            <div className="work-index">/{item.id}</div>
+        {cases.map((item, index) => (
+          <a className={`work-card work-card-${index + 1}`} href={`/work/${item.slug}`} key={item.slug} data-testid={`card-work-${item.slug}`}>
+            <div className="work-index">/{String(index + 1).padStart(2, '0')}</div>
             <div>
-              <h3>{item.name}<i>{item.accent}</i></h3>
+              <span className="work-card-eyebrow">{item.eyebrow}</span>
+              <h3>{item.name}<i>{item.name === 'FitOps' ? 'OS' : ''}</i></h3>
               <p>{item.summary}</p>
             </div>
             <div className="work-meta">
-              <strong>{item.type}</strong>
-              <span>{active === item.id ? 'close detail' : 'open detail'} <ArrowUpRight size={13} /></span>
-              {item.url && (
-                <a
-                  className="work-live"
-                  href={item.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={(event) => event.stopPropagation()}
-                >
-                  visit live site <ArrowUpRight size={12} />
-                </a>
-              )}
+              <strong>{item.tag}</strong>
+              <span>read case study <ArrowUpRight size={13} /></span>
             </div>
-            {active === item.id && (
-              <div className="work-detail">
-                <blockquote>“{item.quote}”</blockquote>
-                <div className="detail-stat"><span>signal</span><strong>{item.stat}</strong></div>
-                {item.id === '01' && (
-                  <div className="fitops-preview" aria-label="FitOps dashboard demo preview">
-                    <div className="fitops-preview-head">
-                      <span><b /> FitOps / dashboard preview</span>
-                      <small>demo data · 2026</small>
-                    </div>
-                    <div className="fitops-preview-grid">
-                      <div className="fitops-screen fitops-screen-main">
-                        <img src={fitopsDashboard} alt="FitOps gym management dashboard with demo metrics and revenue chart" />
-                      </div>
-                      <div className="fitops-screen fitops-screen-secondary">
-                        <img src={fitopsDashboardCompact} alt="FitOps compact gym dashboard view with demo metrics" />
-                      </div>
-                    </div>
-                    <div className="fitops-demo-data">
-                      <span><b>95</b> active members</span>
-                      <span><b>₹22,000</b> monthly revenue</span>
-                      <span><b>53</b> new admissions</span>
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
+          </a>
         ))}
       </div>
+      <div className="work-count reveal reveal-delay-2"><span>04 chapters</span><span /><span>2 ventures · 2 client systems · still building</span></div>
     </section>
   );
 }
 
-function ProofSection() {
-  const [selected, setSelected] = useState(0);
-  const item = proof[selected];
+function ProjectPage() {
+  const [match, params] = useRoute('/work/:slug');
+  const item = match ? cases.find((project) => project.slug === params?.slug) : undefined;
+  if (!item) return <NotFound />;
   return (
-    <section className="section proof-section" id="proof">
-      <div className="section-label reveal"><b>02</b><span /> Proof of life</div>
-      <div className="proof-layout">
-        <div className="reveal">
-          <h2>Ideas are cheap.<br /><em>Receipts</em> are not.</h2>
-          <div className="proof-receipts" aria-label="Selected project screenshots">
-            {proof.map((project, index) => (
-              <button
-                className={`receipt-card receipt-card-${index + 1} ${selected === index ? 'is-active' : ''}`}
-                key={project.name}
-                onClick={() => setSelected(index)}
-                aria-label={`View ${project.name} screenshot`}
-              >
-                <img src={project.image} alt="" />
-                <span>{project.name} <ArrowUpRight size={11} /></span>
-              </button>
-            ))}
-          </div>
+    <main className="case-page portfolio-shell">
+      <Navigation />
+      <section className="case-hero">
+        <div className="case-topline"><a href="/#work"><ArrowLeft size={12} /> back to work</a><span>{item.year}</span></div>
+        <div className="case-heading">
+          <span className="case-eyebrow">{item.eyebrow}</span>
+          <h1>{item.headline}</h1>
+          <p>{item.summary}</p>
         </div>
-        <div className="reveal reveal-delay-1">
-          <div className="proof-tabs" role="tablist" aria-label="Proof projects">
-            {proof.map((project, index) => (
-              <button
-                className={`proof-tab ${selected === index ? 'is-active' : ''}`}
-                onClick={() => setSelected(index)}
-                role="tab"
-                aria-selected={selected === index}
-                key={project.name}
-                data-testid={`button-proof-${index}`}
-              >
-                {project.name}
-              </button>
-            ))}
-          </div>
-          <div className="proof-panel" key={item.name} data-testid="panel-selected-proof">
-            <div className="proof-panel-top">
-              <h3>{item.name}</h3>
-              <span>{item.year}</span>
-            </div>
-            <div className="proof-project-image">
-              <img src={item.image} alt={`${item.name} project preview`} />
-              <span>live surface / demo capture</span>
-            </div>
-            <p className="proof-quote">“{item.quote}”</p>
-             <div className="proof-bottom">
-               <span>{item.tag} · {item.detail}</span>
-               {item.url && <a className="proof-live" href={item.url} target="_blank" rel="noreferrer">open project <ArrowUpRight size={12} /></a>}
-              <b className="proof-mark">{item.mark}</b>
-            </div>
-          </div>
+        <div className="case-meta">
+          <div><span>role</span><strong>{item.role}</strong></div>
+          <div><span>duration</span><strong>{item.duration}</strong></div>
+          <div><span>focus</span><strong>{item.tag}</strong></div>
+          <a href={item.url} target="_blank" rel="noreferrer">visit live site <ArrowUpRight size={13} /></a>
         </div>
-      </div>
-    </section>
+      </section>
+      <section className="case-body">
+        <div className="case-signal"><span>the short version</span><strong>{item.name} is where strategy meets the last mile of implementation.</strong></div>
+        <div className="case-facts">{item.facts.map((fact, index) => <div key={fact}><b>0{index + 1}</b><span>{fact}</span></div>)}</div>
+        <div className="case-chapters">
+          {item.chapters.map(([title, copy], index) => (
+            <article key={title}><span>0{index + 1}</span><div><h2>{title}</h2><p>{copy}</p></div></article>
+          ))}
+        </div>
+      </section>
+      <footer className="case-footer"><a href="/#work"><ArrowLeft size={12} /> browse all work</a><span>© 2026 Devendra Meena / studio</span></footer>
+    </main>
   );
 }
 
@@ -443,7 +412,6 @@ function Home() {
       </div>
       <Identity />
       <WorkSection />
-      <ProofSection />
       <MethodSection />
       <ContactSection />
      <footer className="site-footer"><span>© 2026 Devendra Meena / studio</span><span>built with attention · Udaipur, IN</span></footer>
@@ -456,6 +424,7 @@ function Router() {
     <RoutedErrorBoundary>
       <Switch>
         <Route path="/" component={Home} />
+        <Route path="/work/:slug" component={ProjectPage} />
         <Route component={NotFound} />
       </Switch>
     </RoutedErrorBoundary>

@@ -1,0 +1,81 @@
+DEVENDRA MEENA
+Founder & Full-Stack Developer
++91 8852853727
+
+devendrathecoder@gmail.com
+
+github.com/devendrathecoder | naviti.xyz
+
+Entrepreneurial software engineer and 1st-year Electrical Engineering student at College of
+Technology and Engineering, Udaipur. Proven experience taking concepts from idea to market,
+including developing a live gym management SaaS (FitOps) with an active B2B subscriber. Founder
+of a web development agency (Naviti) delivering custom, high-performance digital solutions. Adept
+at full-stack development and passionate about building user-centric, scalable products.
+
+EXPERIENCE
+2026 - PRESENT
+FitOps | Udaipur, India
+
+Founder & Lead Developer
+Developed and deployed a comprehensive full-stack gym management
+solution from scratch to serve independent fitness businesses.
+Secured the first paying gym owner subscriber, actively managing client
+relationships and incorporating continuous product feedback.
+Architected a highly scalable, serverless backend infrastructure using
+Supabase and Firebase.
+Engineered a responsive, high-performance user interface utilizing
+modern frontend frameworks like Next.js and Vue.
+
+2025 – PRESENT
+Naviti (Web Agency) | Udaipur, India
+
+Founder & Web Developer
+Established a digital agency focused on providing custom-built websites
+and CRM solutions for local businesses.
+Designed and delivered the full public-facing website and personal CRM
+software for AMPM Fitness.
+Managed the full software development lifecycle from client acquisition
+to deployment using Next.js, Vue, and Bootstrap.
+
+KEY PROJECTS
+Hare Krishna Trust & Charity Portal: Developing a public-facing website and an
+internal data analytics dashboard to track, manage, and visualize charity
+operations and metrics.
+(https://hare-krishna-trust.vercel.app)
+AMPM Fitness CRM: Custom lead generation and member management platform
+(ampmfitness.vercel.app).
+
+LINKS
+github: https://github.com/devendrathecoder
+LinkedIn: https://www.linkedin.com/in/devendra-meena-83bab6370/
+
+EDUCATION
+2026 – 2030 (Expected) | CTAE, Udaipur
+
+Bachelor of Technology
+Balancing rigorous academic coursework with
+active entrepreneurial software ventures and
+full-stack development projects.
+
+Completed 2025 | Golden Era Academy,
+Jaipur
+
+Higher Secondary Education
+Completed early education and foundational
+STEM studies before relocating to Udaipur for
+higher education.
+
+SKILLS
+Backend: Node.js, Express, Mongoose
+Databases: MongoDB, SQL
+Frontend: JavaScript, HTML5, CSS3,
+Bootstrap
+Concepts: Full-Stack Development,
+Data Visualization (Graphs), SaaS
+Architecture
+
+LANGUAGES
+English (Fluent)
+Hindi (Native)
+
+
