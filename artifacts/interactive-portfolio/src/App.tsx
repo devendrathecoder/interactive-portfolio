@@ -1,8 +1,10 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import { ArrowDown, ArrowUpRight, Copy, Github, Linkedin, Mail, Menu, X } from 'lucide-react';
-import devendraPhoto from '@assets/devendrapic_1787488439494.png';
 import fitopsDashboard from '@assets/image_1787498583881.png';
 import fitopsDashboardCompact from '@assets/image_1787498602914.png';
+import ampmProject from '@assets/image_1787498674176.png';
+import navitiProject from '@assets/image_1787498699704.png';
+import hareKrishnaProject from '@assets/image_1787498711071.png';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
@@ -43,25 +45,28 @@ const proof = [
     tag: 'Growth + systems',
     quote: 'A custom CRM and lead-generation system designed around the real rhythm of a growing fitness business.',
     detail: 'Custom CRM, lead generation, and member management.',
+    image: ampmProject,
     url: 'https://ampmfitness.vercel.app/',
   },
   {
-    name: 'TeenTasker',
-    year: '02 / 03',
-    mark: 'TT',
-    tag: 'Marketplace',
-    quote: 'A marketplace concept connecting teenagers looking for meaningful work with people who need a hand.',
-    detail: 'Product concept, marketplace thinking, and usable MVP loops.',
-    url: '',
-  },
-  {
     name: 'Hare Krishna Trust',
-    year: '03 / 03',
+    year: '02 / 02',
     mark: 'HKT',
     tag: 'Digital home',
     quote: 'A public-facing website and analytics dashboard making the Trust’s operations easier to understand and act on.',
     detail: 'Web experience, data visualization, and analytics.',
-    url: '',
+    image: hareKrishnaProject,
+    url: 'https://hare-krishna-trust.vercel.app/',
+  },
+  {
+    name: 'Naviti',
+    year: '03 / 03',
+    mark: 'NAV',
+    tag: 'Agency platform',
+    quote: 'A sharp digital home for the agency behind the work — built to turn technical capability into clear business momentum.',
+    detail: 'Brand site, service narrative, and conversion experience.',
+    image: navitiProject,
+    url: 'https://naviti.xyz/',
   },
 ];
 
@@ -92,9 +97,16 @@ function scrollToSection(id: string) {
 
 function Navigation() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const close = () => setOpen(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
   return (
-    <header className="site-nav">
+    <header className={`site-nav ${scrolled ? 'is-scrolled' : ''}`}>
       <a className="nav-mark" href="#top" onClick={close} data-testid="link-home">
         <i aria-hidden="true" /> devendra / studio
       </a>
@@ -134,13 +146,21 @@ function Hero() {
       </div>
       <div className="hero-aside reveal reveal-delay-2" aria-label="Studio mark">
         <div className="hero-orbit" />
-        <div className="hero-portrait">
-          <img src={devendraPhoto} alt="Devendra Meena" />
-          <span>DEVENDRA / 01</span>
-        </div>
         <div className="hero-stamp">
           <strong>ship<br />useful<br />things</strong>
            <small>since 2025 · IN</small>
+        </div>
+        <div className="hero-signal hero-signal-top">
+          <span>01 / role</span>
+          <strong>founder<br />+ builder</strong>
+        </div>
+        <div className="hero-signal hero-signal-bottom">
+          <span>live from</span>
+          <strong>Udaipur →<br />everywhere</strong>
+        </div>
+        <div className="hero-stack-note">
+          <span>currently using</span>
+          <b>Next.js</b><b>Node</b><b>Supabase</b>
         </div>
         <p className="side-note">The work lives somewhere between a whiteboard and a live product.</p>
       </div>
@@ -293,6 +313,10 @@ function ProofSection() {
             <div className="proof-panel-top">
               <h3>{item.name}</h3>
               <span>{item.year}</span>
+            </div>
+            <div className="proof-project-image">
+              <img src={item.image} alt={`${item.name} project preview`} />
+              <span>live surface / demo capture</span>
             </div>
             <p className="proof-quote">“{item.quote}”</p>
              <div className="proof-bottom">
